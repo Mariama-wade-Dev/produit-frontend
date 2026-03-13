@@ -1,50 +1,62 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { loginUser, registerUser, forgotPassword, resetPassword } from '../services/authService';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../services/authSlice';
+import { 
+  useLoginMutation, 
+  useRegisterMutation, 
+  useForgotPasswordMutation 
+} from '../services/authService';
 
 export const useAuth = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // États du formulaire
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
+  // Hooks Redux Toolkit
+  const [loginApi, { isLoading: isLoggingIn }] = useLoginMutation();
+  const [registerApi, { isLoading: isRegistering }] = useRegisterMutation();
+  const [forgotApi] = useForgotPasswordMutation();
+
   // Connexion
   const login = async (e) => {
     e.preventDefault();
-    const response = await loginUser(email, password);
-    if (response.success) {
-      console.log("Connexion OK :", response.token);
+    try {
+      const response = await loginApi({ username: email, password }).unwrap();
+      // On stocke le token et l'user dans le store Redux
+      dispatch(setCredentials(response));
+      console.log("Connexion OK");
       navigate('/dashboard');
+    } catch (err) {
+      console.error("Erreur connexion :", err);
     }
   };
 
   // Inscription
   const register = async (e) => {
     e.preventDefault();
-    const response = await registerUser(name, email, password);
-    if (response.success) {
+    try {
+      await registerApi({ nom: name, email, password }).unwrap();
       console.log("Inscription OK");
       navigate('/login');
+    } catch (err) {
+      console.error("Erreur inscription :", err);
     }
   };
 
   // Mot de passe oublié
   const forgot = async (e) => {
     e.preventDefault();
-    const response = await forgotPassword(email);
-    if (response.success) {
+    try {
+      await forgotApi({ email }).unwrap();
       console.log("Instructions envoyées");
       navigate('/reset-password');
-    }
-  };
-
-  // Réinitialisation mot de passe
-  const reset = async (e) => {
-    e.preventDefault();
-    const response = await resetPassword(password);
-    if (response.success) {
-      console.log("Mot de passe réinitialisé");
-      navigate('/login');
+    } catch (err) {
+      console.error("Erreur forgot password :", err);
     }
   };
 
@@ -55,6 +67,7 @@ export const useAuth = () => {
     login,
     register,
     forgot,
-    reset
+    isLoggingIn,
+    isRegistering
   };
 };

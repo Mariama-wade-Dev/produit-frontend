@@ -1,9 +1,12 @@
 import React from 'react';
 import { FaSearch, FaBell, FaSignOutAlt, FaBars } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = ({ title, toggleSidebar }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const pathname = location.pathname 
+  console.log(pathname)
 
   return (
     <header className="h-16 bg-white border-b px-4 md:px-8 flex items-center justify-between shadow-sm z-10 shrink-0">

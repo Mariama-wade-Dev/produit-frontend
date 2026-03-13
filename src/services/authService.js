@@ -1,25 +1,43 @@
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+import { apiSlice } from "../app/api/apiSlice";
 
-export const loginUser = async (email, password) => {
-  await delay(1000);
-  console.log("API login simulée:", email, password);
-  return { success: true, token: "fake-jwt-token" };
-};
+export const authService = apiSlice.injectEndpoints({
+    endpoints: (builder) => ({
+        // Mutation pour le Login
+        login: builder.mutation({
+            query: (credentials) => ({
+                url: 'auth/login/',
+                method: 'POST',
+                body: credentials,
+            }),
+        }),
 
-export const registerUser = async (name, email, password) => {
-  await delay(1000);
-  console.log("API register simulée:", name, email, password);
-  return { success: true };
-};
+        // Mutation pour l'Inscription (on adapte 'nom' -> 'username')
+        register: builder.mutation({
+            query: (userData) => ({
+                url: 'auth/register/',
+                method: 'POST',
+                body: {
+                    username: userData.nom, // Ton champ 'nom' du formulaire
+                    email: userData.email,
+                    password: userData.password
+                },
+            }),
+        }),
 
-export const forgotPassword = async (email) => {
-  await delay(1000);
-  console.log("API forgot password simulée:", email);
-  return { success: true };
-};
+        // Mutation pour l'oubli de mot de passe (envoi de mail)
+        forgotPassword: builder.mutation({
+            query: (data) => ({
+                url: 'auth/password_reset/',
+                method: 'POST',
+                body: data,
+            }),
+        }),
+    }),
+});
 
-export const resetPassword = async (password) => {
-  await delay(1000);
-  console.log("API reset password simulée:", password);
-  return { success: true };
-};
+// RTK Query génère automatiquement ces hooks basés sur les noms des endpoints
+export const {
+    useLoginMutation,
+    useRegisterMutation,
+    useForgotPasswordMutation,
+} = authService;

@@ -3,7 +3,8 @@ import AuthHeader from '../../components/common/AuthHeader';
 import { useAuth } from '../../hooks/useAuth';
 
 const ForgotPassword = () => {
-  const { email, setEmail, forgot } = useAuth();
+  // Ajout de isForgotLoading (ou le nom exact utilisé dans ton useAuth)
+  const { email, setEmail, forgot, isForgotLoading } = useAuth();
 
   return (
     <div className="fixed inset-0 w-full h-[100dvh] flex items-center justify-center p-4 overflow-hidden">
@@ -31,21 +32,22 @@ const ForgotPassword = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required 
-                className="w-full border-b border-gray-200 pb-1 text-sm text-gray-700 bg-transparent outline-none" 
+                className="w-full border-b border-gray-200 pb-1 text-sm text-gray-700 bg-transparent outline-none placeholder-gray-400" 
               />
 
               <button 
                 type="submit" 
-                className="w-full bg-[#45484D] text-white py-3 rounded-sm font-bold text-sm shadow-md mt-4 hover:bg-black transition-all"
+                disabled={isForgotLoading}
+                className="w-full bg-[#45484D] text-white py-3 rounded-sm font-bold text-sm shadow-md mt-4 hover:bg-black transition-all disabled:opacity-50"
               >
-                Envoyer
+                {isForgotLoading ? 'Envoi...' : 'Envoyer'}
               </button>
             </form>
           </div>
 
           <div className="mt-6 text-center space-y-1 text-[12px] font-bold">
             <span className="text-black">Retour à la </span>
-            <Link to="/login" className="text-[#FFC107]">
+            <Link to="/login" className="text-[#FFC107] hover:underline">
               connexion
             </Link>
           </div>

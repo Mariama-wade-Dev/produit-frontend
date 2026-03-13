@@ -3,7 +3,8 @@ import AuthHeader from '../../components/common/AuthHeader';
 import { useAuth } from '../../hooks/useAuth';
 
 const LoginPage = () => {
-  const { email, setEmail, password, setPassword, login } = useAuth();
+  // Ajout de isLoggingIn récupéré depuis useAuth
+  const { email, setEmail, password, setPassword, login, isLoggingIn } = useAuth();
 
   return (
     <div className="fixed inset-0 w-full h-[100dvh] flex items-center justify-center p-4 overflow-hidden">
@@ -61,9 +62,10 @@ const LoginPage = () => {
           <button
             type="submit"
             onClick={login}
-            className="w-full bg-[#45484D] text-white py-2.5 rounded-sm font-bold text-sm shadow-md mt-6 hover:bg-black transition-all"
+            disabled={isLoggingIn} // Désactivé pendant la vérification Django
+            className="w-full bg-[#45484D] text-white py-2.5 rounded-sm font-bold text-sm shadow-md mt-6 hover:bg-black transition-all disabled:opacity-50"
           >
-            Se connecter
+            {isLoggingIn ? 'Connexion...' : 'Se connecter'}
           </button>
         </div>
 

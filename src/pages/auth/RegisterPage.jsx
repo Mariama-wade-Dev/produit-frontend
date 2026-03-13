@@ -3,7 +3,7 @@ import AuthHeader from '../../components/common/AuthHeader';
 import { useAuth } from '../../hooks/useAuth';
 
 const RegisterPage = () => {
-  const { name, setName, email, setEmail, password, setPassword, register } = useAuth();
+  const { name, setName, email, setEmail, password, setPassword, register, isRegistering } = useAuth();
 
   return (
     <div className="fixed inset-0 w-full h-[100dvh] flex items-center justify-center p-4 overflow-hidden">
@@ -70,12 +70,13 @@ const RegisterPage = () => {
           </div>
 
           <button
-            type="submit"
-            onClick={register}
-            className="w-full bg-[#45484D] text-white py-2.5 rounded-sm font-bold text-sm shadow-md mt-6 hover:bg-black transition-all"
-          >
-            S'inscrire
-          </button>
+  type="submit"
+  onClick={register}
+  disabled={isRegistering} // Empêche le double clic
+  className="w-full bg-[#45484D] text-white py-2.5 rounded-sm font-bold text-sm shadow-md mt-6 hover:bg-black transition-all disabled:opacity-50"
+>
+  {isRegistering ? 'Inscription...' : "S'inscrire"} 
+</button>
         </div>
 
         <div className="mt-4 text-center">

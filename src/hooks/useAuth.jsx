@@ -5,7 +5,8 @@ import { setCredentials } from '../services/authSlice';
 import { 
   useLoginMutation, 
   useRegisterMutation, 
-  useForgotPasswordMutation 
+  useForgotPasswordMutation,
+  useResetPasswordMutation // N'oublie pas d'ajouter l'import ici
 } from '../services/authService';
 
 export const useAuth = () => {
@@ -17,19 +18,19 @@ export const useAuth = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
-  // Hooks Redux Toolkit
+  // Hooks Redux Toolkit avec renommage des états de chargement
   const [loginApi, { isLoading: isLoggingIn }] = useLoginMutation();
   const [registerApi, { isLoading: isRegistering }] = useRegisterMutation();
-  const [forgotApi] = useForgotPasswordMutation();
+  const [forgotApi, { isLoading: isForgotLoading }] = useForgotPasswordMutation();
+  const [resetApi, { isLoading: isResetLoading }] = useResetPasswordMutation();
 
   // Connexion
   const login = async (e) => {
     e.preventDefault();
     try {
-      const response = await loginApi({ username: email, password }).unwrap();
-      // On stocke le token et l'user dans le store Redux
+      const response = await loginApi({ email: email, password: password }).unwrap();
       dispatch(setCredentials(response));
-      console.log("Connexion OK");
+      console.log("Connexion réussie !");
       navigate('/dashboard');
     } catch (err) {
       console.error("Erreur connexion :", err);
@@ -40,7 +41,7 @@ export const useAuth = () => {
   const register = async (e) => {
     e.preventDefault();
     try {
-      await registerApi({ nom: name, email, password }).unwrap();
+      await registerApi({ username: name, email, password }).unwrap();
       console.log("Inscription OK");
       navigate('/login');
     } catch (err) {
@@ -53,10 +54,20 @@ export const useAuth = () => {
     e.preventDefault();
     try {
       await forgotApi({ email }).unwrap();
-      console.log("Instructions envoyées");
       navigate('/reset-password');
     } catch (err) {
       console.error("Erreur forgot password :", err);
+    }
+  };
+
+  // Réinitialisation du mot de passe
+  const reset = async (e) => {
+    e.preventDefault();
+    try {
+      await resetApi({ password }).unwrap();
+      navigate('/login');
+    } catch (err) {
+      console.error("Erreur reset password :", err);
     }
   };
 
@@ -67,7 +78,10 @@ export const useAuth = () => {
     login,
     register,
     forgot,
+    reset,
     isLoggingIn,
-    isRegistering
+    isRegistering,
+    isForgotLoading, // Ajouté pour tes composants
+    isResetLoading   // Ajouté pour tes composants
   };
 };

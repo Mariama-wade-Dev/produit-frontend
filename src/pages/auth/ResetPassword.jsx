@@ -1,13 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import AuthHeader from '../../components/common/AuthHeader';
+import { useAuth } from '../../hooks/useAuth';
 
 const ResetPassword = () => {
-  const navigate = useNavigate();
-
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    navigate('/login');
-  };
+  // On récupère les éléments nécessaires depuis useAuth
+  const { password, setPassword, reset, isResetLoading } = useAuth();
 
   return (
     <div className="fixed inset-0 w-full h-[100dvh] flex items-center justify-center p-4 overflow-hidden">
@@ -31,29 +28,32 @@ const ResetPassword = () => {
               Veuillez définir votre nouveau mot de passe pour sécuriser votre compte.
             </p>
 
-            <form onSubmit={handleUpdate} className="flex flex-col space-y-4">
+            <form onSubmit={reset} className="flex flex-col space-y-4">
               <input
                 type="password"
                 required
                 placeholder="Nouveau mot de passe"
-                className="w-full border-b border-gray-200 pb-1 text-sm text-gray-700 bg-transparent outline-none"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full border-b border-gray-200 pb-1 text-sm text-gray-700 bg-transparent outline-none placeholder-gray-400"
               />
               <input
                 type="password"
                 required
                 placeholder="Confirmer le mot de passe"
-                className="w-full border-b border-gray-200 pb-1 text-sm text-gray-700 bg-transparent outline-none"
+                className="w-full border-b border-gray-200 pb-1 text-sm text-gray-700 bg-transparent outline-none placeholder-gray-400"
               />
+              
+              {/* Le bouton est maintenant dans le formulaire pour supporter la touche Entrée */}
+              <button
+                type="submit"
+                disabled={isResetLoading}
+                className="w-full bg-[#45484D] text-white py-3 rounded-sm font-bold text-sm shadow-md hover:bg-black transition-all mt-6 disabled:opacity-50"
+              >
+                {isResetLoading ? 'Mise à jour...' : 'Mettre à jour'}
+              </button>
             </form>
           </div>
-
-          <button
-            type="submit"
-            onClick={handleUpdate}
-            className="w-full bg-[#45484D] text-white py-3 rounded-sm font-bold text-sm shadow-md hover:bg-black transition-all mt-6"
-          >
-            Mettre à jour
-          </button>
         </div>
       </div>
     </div>

@@ -13,5 +13,5 @@ export const apiSlice = createApi({
         },
     }),
     tagTypes: ['Hotel', 'User'], 
-    endpoints: (builder) => ({}), 
+    endpoints: (builder) => ({}), // On laisse vide, les services injecteront leurs endpoints ici
 });

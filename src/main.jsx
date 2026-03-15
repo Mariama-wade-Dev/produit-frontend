@@ -8,10 +8,9 @@
 //     <App />
 //   </React.StrictMode>
 // )
-
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom' // On importe le moteur de navigation
+import { HashRouter as Router } from 'react-router-dom'; // Tu l'appelles Router ici
 import { Provider } from 'react-redux';
 import { store } from './app/store';
 import App from './App.jsx'
@@ -19,13 +18,11 @@ import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
  <React.StrictMode>
-    {/* Le Provider doit envelopper toute l'application pour que Redux fonctionne */}
     <Provider store={store}>
-      <BrowserRouter>
+      {/* Remplace <BrowserRouter> par <Router> */}
+      <Router> 
         <App />
-      </BrowserRouter>
+      </Router>
     </Provider>
   </React.StrictMode>
 )
-
-

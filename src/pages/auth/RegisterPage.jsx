@@ -17,7 +17,7 @@ const RegisterPage = () => {
 
         <div className="bg-white rounded-sm shadow-2xl flex flex-col justify-between p-6 w-[280px] min-h-[380px]">
           <div className="flex flex-col justify-center h-full">
-            <p className="text-gray-700 text-[13px] font-medium mb-8">
+            <p className="text-neutral-700 text-sm  font-medium mb-8">
               Inscrivez-vous en tant que Admin
             </p>
 
@@ -61,7 +61,7 @@ const RegisterPage = () => {
                 />
                 <label
                   htmlFor="terms"
-                  className="text-[10px] text-gray-600 font-medium cursor-pointer"
+                  className="text-[12px]  text-neutral-700 font-medium cursor-pointer"
                 >
                   Accepter les termes et la politique
                 </label>
@@ -82,7 +82,7 @@ const RegisterPage = () => {
         <div className="mt-4 text-center">
           <p className="text-[12px] text-white font-medium">
             Vous avez déjà un compte ?{' '}
-            <Link to="/login" className="text-[#FFC107] font-bold ml-1 hover:underline">
+            <Link to="/login" className="text-yellow-300 font-bold ml-1 hover:underline">
               Se connecter
             </Link>
           </p>

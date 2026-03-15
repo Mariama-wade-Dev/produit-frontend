@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   return (
     <DashboardLayout title="Dashboard">
-      <div className="bg-white/60 backdrop-blur-md -mx-8 px-8 py-6 mb-8 border-b border-gray-100 shadow-sm">
+      <div className="bg-white backdrop-blur-md -mx-8 px-8 py-6 mb-8 border-b border-gray-100 shadow-sm">
         <h3 className="text-3xl font-light text-gray-800 uppercase tracking-tight">
           Bienvenue sur RED Product
         </h3>
@@ -37,7 +37,7 @@ const Dashboard = () => {
                 <span className="text-3xl font-bold text-gray-800">{stat.value}</span>
                 <span className="text-lg text-gray-500 font-light">{stat.label}</span>
               </div>
-              <p className="text-xs text-gray-400 mt-1">Je ne sais pas quoi mettre</p>
+              <p className="text-xs text-gray-400 mt-1">Bienvenue</p>
             </div>
           </div>
         ))}

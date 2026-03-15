@@ -18,7 +18,7 @@ const LoginPage = () => {
 
         <div className="bg-white rounded-sm shadow-2xl flex flex-col justify-between p-6 w-[280px] min-h-[340px]">
           <div className="flex flex-col justify-center h-full">
-            <p className="text-gray-700 text-[13px] font-medium mb-8">
+            <p className="text-neutral-700 text-sm font-medium mb-8">
               Connectez-vous en tant que Admin
             </p>
 
@@ -51,7 +51,7 @@ const LoginPage = () => {
                 />
                 <label
                   htmlFor="keep"
-                  className="text-[11px] text-gray-600 cursor-pointer font-medium"
+                  className="  text-sm text-neutral-700 cursor-pointer font-medium"
                 >
                   Gardez-moi connecté
                 </label>
@@ -72,13 +72,13 @@ const LoginPage = () => {
         <div className="mt-4 text-center space-y-2">
           <Link
             to="/forgot-password"
-            className="block text-[#FFC107] text-[12px] font-bold hover:underline"
+            className="block text-yellow-300 text-[12px] font-bold hover:underline"
           >
             Mot de passe oublié ?
           </Link>
           <p className="text-[12px] text-white">
             Vous n'avez pas de compte ?{' '}
-            <Link to="/register" className="text-[#FFC107] font-bold ml-1 hover:underline">
+            <Link to="/register" className="text-yellow-300 font-bold ml-1 hover:underline">
               S'inscrire
             </Link>
           </p>

@@ -139,9 +139,19 @@ const HotelsPage = () => {
                   ))}
                   <div className="flex flex-col gap-2">
                     <label className="text-xs font-bold text-gray-700">Devise</label>
-                    <select className="border border-gray-200 bg-gray-50/50 rounded-xl p-3 text-sm outline-none bg-white cursor-pointer">
+                    {/* <select className="border border-gray-200 bg-gray-50/50 rounded-xl p-3 text-sm outline-none bg-white cursor-pointer">
                       <option>F XOF</option>
-                    </select>
+                    </select> */}
+
+                  <select 
+  value={newHotel.currency}
+  onChange={e => setNewHotel({ ...newHotel, currency: e.target.value })}
+  className="border border-gray-200 bg-gray-50/50 rounded-xl p-3 text-sm outline-none bg-white cursor-pointer"
+>
+  <option value="F XOF">F XOF</option>
+  <option value="USD">$ USD</option>
+  <option value="EUR">€ EUR</option>
+</select>
                   </div>
                 </div>
 

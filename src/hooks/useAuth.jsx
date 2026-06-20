@@ -136,19 +136,19 @@ export const useAuth = () => {
     }
   };
 
+ 
   // 2. INSCRIPTION
-  const register = async (e) => {
-    if (e) e.preventDefault();
-    try {
-      // 'name' correspond au champ 'username' attendu par Django
-      await registerApi({ username: name, email, password }).unwrap();
-      console.log("Inscription réussie");
-      navigate('/login');
-    } catch (err) {
-      console.error("Erreur inscription :", err);
-      alert("Erreur lors de l'inscription. L'utilisateur existe peut-être déjà.");
-    }
-  };
+const register = async (e) => {
+  if (e) e.preventDefault();
+  try {
+    await registerApi({ name, email, password }).unwrap();
+    console.log("Inscription réussie");
+    navigate('/login');
+  } catch (err) {
+    console.error("Erreur inscription :", err);
+    alert("Erreur lors de l'inscription. L'utilisateur existe peut-être déjà.");
+  }
+};
 
   // 3. MOT DE PASSE OUBLIÉ
   const forgot = async (e) => {
